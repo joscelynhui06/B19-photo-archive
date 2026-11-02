@@ -34,7 +34,7 @@
 <div class="hist-range" id="historicalRange" hidden>
 <label for="historicalOpacity"><span>Overlay opacity</span><output id="opacityValue">75%</output></label>
 <input id="historicalOpacity" type="range" min="0" max="100" value="75" step="5">
-</div><div class="hist-warning" id="historicalWarning">No historical tiles at this zoom; zoom to levels 12–16.</div>
+</div><div class="hist-warning" id="historicalWarning">No historical tiles at this zoom; zoom to levels 12–19.</div>
 </div></section></main>
 <footer class="site-footer"><strong>About this archive</strong><p>Photographs and archival descriptions are drawn from the assigned Box B19 dataset. Names, dates and coordinates reflect available archival records and subsequent interpretation. Some locations are approximate or village-level; records without reliably assigned coordinates remain browseable. A map marker does not necessarily indicate the precise camera viewpoint.</p><p>Historical imagery layer uses a 2026 student-exported georeferenced mosaic; original photography date and provenance must be confirmed before final citation. Modern basemap © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>. Original photograph sources and positional notes are displayed in individual records. This is a student digital-humanities project.</p></footer>
 <div id="overlay" class="overlay" aria-hidden="true"><div class="dialog" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><button id="close" class="close" aria-label="Close">×</button><article id="detail" class="detail"></article></div></div>
@@ -65,7 +65,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,att
 
 // Local GitHub Pages XYZ overlay. Raster tiles remain beneath the interactive photo markers.
 const historicalTiles=L.tileLayer('./B19_historical_tiles/{z}/{x}/{y}.png',{
- minZoom:12,maxZoom:16,maxNativeZoom:16,opacity:.75,tileSize:256,
+ minZoom:12,maxZoom:19,maxNativeZoom:17,opacity:.75,tileSize:256,
  attribution:'Historical aerial imagery: source/photography date to be confirmed'
 });
 const historicalToggle=document.getElementById('historicalToggle');
@@ -78,7 +78,7 @@ function syncHistoricalState(){
  if(on&&!map.hasLayer(historicalTiles)) historicalTiles.addTo(map);
  if(!on&&map.hasLayer(historicalTiles)) map.removeLayer(historicalTiles);
  historicalRange.hidden=!on;
- historicalWarning.style.display=on&&(map.getZoom()<12||map.getZoom()>16)?'block':'none';
+ historicalWarning.style.display=on&&(map.getZoom()<12||map.getZoom()>19)?'block':'none';
 }
 historicalToggle.addEventListener('change',syncHistoricalState);
 historicalOpacity.addEventListener('input',()=>{
@@ -107,4 +107,3 @@ $('close').onclick=closeDetail;$('overlay').addEventListener('click',e=>{if(e.ta
 filter();
 </script>
 </body></html>
-
